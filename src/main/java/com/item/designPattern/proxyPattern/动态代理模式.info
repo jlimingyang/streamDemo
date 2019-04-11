@@ -1,0 +1,72 @@
+ 动态代理
+① jdk代理
+       所谓的jdk代理指的是借助jdk所提供的相关类来实现代理模式，其主要有两个类：InvocationHandler和Proxy。在实现代理模式时，只需要实现InvocationHandler接口即可，如下是实现该接口的一个示例：
+
+public class SafetyInvocationHandler implements InvocationHandler {
+  private Object target;
+
+  public SafetyInvocationHandler(Object target) {
+    this.target = target;
+  }
+
+  @Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    System.out.println("before safety check.");
+    Object result = method.invoke(target, args);
+    System.out.println("after safety check.");
+    return result;
+  }
+}
+       如下是客户端调用方式：
+
+public class Client {
+  @Test
+  public void testDynamicProxy() {
+    ISubject subject = new SubjectImpl();
+    ISubject proxySubject = (ISubject) Proxy.newProxyInstance(Client.class.getClassLoader(), new Class[]{ISubject.class}, new SafetyInvocationHandler(subject));
+    proxySubject.request();
+
+    IUpdatable updatable = new UpdatableImpl();
+    IUpdatable proxyUpdatable = (IUpdatable) Proxy.newProxyInstance(Client.class.getClassLoader(), new Class[]{IUpdatable.class}, new SafetyInvocationHandler(updatable));
+    proxyUpdatable.update();
+  }
+}
+       可以看到，客户端在调用代理对象时使用的都是同一个SafetyInvocationHandler。这里jdk代理其实在底层利用反射为每个需要代理的对象都创建了一个InvocationHandler实例，在调用目标对象时，其首先会调用代理对象，然后在代理对象的逻辑中请求目标对象。这也就是为什么在代理类中可以保存目标对象实例的原因，比如上述的SafetyInvocationHandler，其声明了一个Object类型的属性用来保存目标对象的实例。
+
+       jdk代理解决了静态代理需要为每个业务接口创建一个代理类的问题，虽然使用反射创建代理对象效率比静态代理稍低，但其在现代高速jvm中也是可以接受的，在Spring的AOP代理中默认就是使用的jdk代理实现的。这里jdk代理的限制也是比较明显的，即其需要被代理的对象必须实现一个接口。这里如果被代理对象没有实现任何接口，或者被代理的业务方法没有相应的接口，我们则可以使用另一种方式来实现，即Cglib代理。
+
+② Cglib代理
+       Cglib代理是功能最为强大的一种代理方式，因为其不仅解决了静态代理需要创建多个代理类的问题，还解决了jdk代理需要被代理对象实现某个接口的问题。对于需要代理的类，如果能为其创建一个子类，并且在子类中编写相关的代理逻辑，因为“子类 instanceof 父类”，因而在进行调用时直接调用子类对象的实例，也可以达到代理的效果。Cglib代理的原理实际上是动态生成被代理类的子类字节码，由于其字节码都是按照jvm编译后的class文件的规范编写的，因而其可以被jvm正常加载并运行。这也就是Cglib代理为什么不需要为每个被代理类编写代理逻辑的原因。这里需要注意的是，根据Cglib实现原理，由于其是通过创建子类字节码的形式来实现代理的，如果被代理类的方法被声明final类型，那么Cglib代理是无法正常工作的，因为final类型方法不能被重写。如下是使用Cglib代理的一个示例：
+
+/**
+ * 被代理类
+ */
+public class Suject {
+  public void request() {
+    System.out.println("update without implement any interface.");
+  }
+}
+/**
+ * 代理类
+ */
+public class SafetyCheckCallback implements MethodInterceptor {
+  @Override
+  public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+    System.out.println("before safety check.");
+    Object result = methodProxy.invokeSuper(o, objects);
+    System.out.println("after safety check.");
+    return result;
+  }
+}
+如下是客户端访问方式：
+
+public class Client {
+  @Test
+  public void testCglibProxy() {
+    Enhancer enhancer = new Enhancer();
+    enhancer.setSuperclass(Suject.class);
+    enhancer.setCallback(new SafetyCheckCallback());
+    Suject proxy = (Suject) enhancer.create();
+    proxy.request();
+  }
+}
