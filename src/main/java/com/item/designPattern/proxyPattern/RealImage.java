@@ -2,6 +2,7 @@ package com.item.designPattern.proxyPattern;
 
 public class RealImage implements Image {
     private String fileName;
+
     public RealImage(String fileName) {
         this.fileName = fileName;
         loadFromDisk(fileName);
