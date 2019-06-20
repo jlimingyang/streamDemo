@@ -1,5 +1,7 @@
 package com.item.test;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.item.beans.PresalePriceRule;
 import com.item.beans.PresaleStages;
 import com.item.beans.Test01;
@@ -22,6 +24,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.Supplier;
@@ -231,8 +234,29 @@ public class Demo03 {
 
     @Test
     public void tes05(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime.getDayOfWeek().getDisplayName(TextStyle.FULL,Locale.CHINESE));
+        System.out.println(localDateTime.getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE,Locale.CHINESE));
+        System.out.println(localDateTime.getDayOfWeek().getDisplayName(TextStyle.NARROW,Locale.CHINESE));
+        System.out.println(localDateTime.getDayOfWeek().getDisplayName(TextStyle.NARROW_STANDALONE,Locale.CHINESE));
+        System.out.println(localDateTime.getDayOfWeek().getDisplayName(TextStyle.SHORT,Locale.CHINESE));
+        System.out.println(localDateTime.getDayOfWeek().getDisplayName(TextStyle.SHORT_STANDALONE,Locale.CHINESE));
 
+    }
 
+    @Test
+    public void test007(){
+        Employee e1 = new Employee();
+        e1.setAge(21);
+        e1.setName("张三");
+        Employee e2 = new Employee();
+        e2.setName("张三");
+        e2.setAge(22);
+        List<Employee> list = Lists.newArrayList(e1,e2);
+        Map m = Maps.newConcurrentMap();
+        list.stream().filter(s->{
+            return m.putIfAbsent(s.getName(),true) == null;
+        }).forEach(System.out::println);
     }
 
 }

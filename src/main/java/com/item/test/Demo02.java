@@ -1,6 +1,7 @@
 package com.item.test;
 
 import com.alibaba.fastjson.JSON;
+import com.item.enums.CmsJumpType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class Demo02 {
     @Test
     public void test02() {
 //        Object runable = (Runnable)()-> System.out.println(123);
-        new Thread(() -> System.out.println("213")).start();
+//        new Thread(() -> System.out.println("213")).start();
     }
 
     public void printMoney(Function<Integer, String> format) {
