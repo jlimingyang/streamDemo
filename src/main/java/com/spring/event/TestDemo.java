@@ -17,8 +17,6 @@ ApplicationContext applicationContext;
 
     @GetMapping("test01")
     public void  test01(@RequestParam String msg){
-        System.out.println(applicationContext.getApplicationName());
-        System.out.println(JSON.toString(applicationContext.getAutowireCapableBeanFactory()));
         applicationContext.publishEvent(new OrderEvent("testListener",msg));
     }
     
