@@ -1,4 +1,4 @@
-package com.spring.template;
+package com.spring.diAndIoc;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

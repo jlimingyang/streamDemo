@@ -1,4 +1,4 @@
-package com.spring.template;
+package com.spring.diAndIoc;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
