@@ -1,3 +1,5 @@
-spring:
-  redis:
-    url: 127.0.0.1:6379
+server:
+  port: 8888
+security:
+  basic:
+    enable: false

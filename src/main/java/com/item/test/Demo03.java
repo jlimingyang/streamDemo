@@ -3,23 +3,17 @@ package com.item.test;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.item.beans.PresalePriceRule;
-import com.item.beans.PresaleStages;
 import com.item.beans.Test01;
 import com.item.beans.Test02;
 import com.item.enums.CmsJumpType;
-import jdk.nashorn.internal.runtime.NumberToString;
-import lombok.var;
 import org.apache.avro.data.Json;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -30,7 +24,6 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class Demo03 {
 
