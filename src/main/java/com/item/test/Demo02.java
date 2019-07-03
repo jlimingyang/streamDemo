@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.reducing;
+
 public class Demo02 {
 
     private String name;
@@ -257,7 +259,9 @@ public class Demo02 {
         Map<String,List<Student>> groupBy = students.stream().collect(Collectors.groupingBy(Student::getName,Collectors.toCollection(ArrayList::new)));
         System.out.println(JSON.toJSONString(groupBy));
         //分组统计
-        Map<String,Long> map = students.stream().collect(Collectors.groupingBy(Student::getName,Collectors.counting()));
+//        Map<String,Long> map = students.stream().collect(Collectors.groupingBy(Student::getName,Collectors.counting()));
+        Map<String,Long> map = students.stream().collect(Collectors.groupingBy(Student::getName,reducing(0L, e -> 1L, Long::sum)));
+
         System.out.println(JSON.toJSONString(map));
     }
 

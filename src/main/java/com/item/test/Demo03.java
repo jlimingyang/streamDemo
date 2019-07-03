@@ -3,18 +3,26 @@ package com.item.test;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.item.beans.PresalePriceRule;
+import com.item.beans.PresaleStages;
 import com.item.beans.Test01;
 import com.item.beans.Test02;
 import com.item.enums.CmsJumpType;
+import jdk.nashorn.internal.runtime.NumberToString;
+import lombok.var;
 import org.apache.avro.data.Json;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.StopWatch;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +32,7 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Demo03 {
 
@@ -237,8 +246,10 @@ public class Demo03 {
 
     }
 
+    StopWatch s = new StopWatch("耗时统计");
     @Test
     public void test007(){
+        s.start("NO:1");
         Employee e1 = new Employee();
         e1.setAge(21);
         e1.setName("张三");
@@ -250,6 +261,18 @@ public class Demo03 {
         list.stream().filter(s->{
             return m.putIfAbsent(s.getName(),true) == null;
         }).forEach(System.out::println);
+
+        s.stop();
+        s.start("NO:2");
+        s.stop();
+        s.prettyPrint();
+        System.out.println("总耗时"+s.getTotalTimeSeconds()+"s");
     }
 
+    @Test
+    public void test008(){
+        for (int i = 0; i < 100; i++) {
+            System.out.println();
+        }
+    }
 }
