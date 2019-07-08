@@ -17,14 +17,14 @@ import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.StopWatch;
 
+import javax.swing.text.DateFormatter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.text.DateFormat;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
@@ -271,8 +271,7 @@ public class Demo03 {
 
     @Test
     public void test008(){
-        for (int i = 0; i < 100; i++) {
-            System.out.println();
-        }
+        LocalTime localTime = LocalTime.parse("02:00");
+        System.out.println(localTime.isBefore(LocalTime.MIN));
     }
 }
