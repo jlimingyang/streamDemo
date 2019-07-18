@@ -1,6 +1,7 @@
 package com.spring.strategy;
 
 import com.google.common.collect.Maps;
+import com.spring.log.PrintLog;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class SaleService {
        this.map = stategies.stream().collect(Collectors.toMap(DiscountStategy::type, a->a));
     }
 
+    @PrintLog
     public double sale(String type,double fee){
         return map.get(type).discount(fee);
     }
