@@ -12,7 +12,7 @@ public class ReceiveTimeSettingVo implements Serializable {
 
     private Integer isEnable = 0;
 
-    private String depotCode;
+//    private String depotCode;
 
     private List<ReceiveTimeSettingDetailVo> details;
 
