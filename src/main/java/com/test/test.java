@@ -437,11 +437,15 @@ public class test {
     public void testCCC(){
         LocalTime a = LocalTime.of(1,00);
         LocalTime b = LocalTime.of(10,00);
+        new Thread(() -> {
+            log.debug("测试");
+        }).start();
         int c = 1;
         while (a.isBefore(b)){
             a = a.plusHours(1);
             System.out.println(c++);
         }
+
     }
 
 }

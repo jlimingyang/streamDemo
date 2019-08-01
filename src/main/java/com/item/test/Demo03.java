@@ -2,6 +2,7 @@ package com.item.test;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.gson.Gson;
 import com.item.beans.PresalePriceRule;
 import com.item.beans.PresaleStages;
 import com.item.beans.Test01;
@@ -14,6 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.junit.Test;
+import org.mortbay.util.ajax.JSON;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.StopWatch;
 
@@ -253,20 +255,34 @@ public class Demo03 {
         Employee e1 = new Employee();
         e1.setAge(21);
         e1.setName("张三");
+        Employee e5 = new Employee();
+        e5.setAge(21);
+        e5.setName("张三");
+        Employee e6 = new Employee();
+        e6.setAge(21);
+        e6.setName("李四");
         Employee e2 = new Employee();
-        e2.setName("张三");
+        e2.setName("李四");
         e2.setAge(22);
-        List<Employee> list = Lists.newArrayList(e1,e2);
-        Map m = Maps.newConcurrentMap();
-        list.stream().filter(s->{
-            return m.putIfAbsent(s.getName(),true) == null;
-        }).forEach(System.out::println);
+        Employee e3 = new Employee();
+        e3.setName("张三");
+        e3.setAge(22);
+        Employee e4 = new Employee();
+        e4.setName("张三");
+        e4.setAge(22);
+        List<Employee> list = Lists.newArrayList(e1,e2,e3,e4,e5,e6);
+//        Map m = Maps.newConcurrentMap();
+//        list.stream().filter(s->{
+//            return m.putIfAbsent(s.getName(),true) == null;
+//        }).forEach(System.out::println);
 
         s.stop();
         s.start("NO:2");
         s.stop();
         s.prettyPrint();
         System.out.println("总耗时"+s.getTotalTimeSeconds()+"s");
+        Map<String, Integer> collect = list.stream().collect(Collectors.toMap(Employee::getName, a -> 1, (a, b) -> a + b));
+        System.out.println(new Gson().toJson(collect));
     }
 
     @Test
