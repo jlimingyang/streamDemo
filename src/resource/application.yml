@@ -3,3 +3,21 @@ server:
 security:
   basic:
     enable: false
+spring:
+  rabbitmq:
+    host: 172.16.10.170
+    port: 5672
+    username: admin
+    password: admin
+#    publisher-confirms: true
+#    publisher-returns: true
+#    listener:
+#      direct:
+#        acknowledge-mode: auto
+#      simple:
+#        acknowledge-mode: auto
+  redis:
+    host: 172.16.10.170
+    port: 6379
+    timeout: 5000
+    password: 123456
