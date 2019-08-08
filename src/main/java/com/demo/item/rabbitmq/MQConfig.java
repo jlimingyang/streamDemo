@@ -1,5 +1,7 @@
 package com.demo.item.rabbitmq;
 
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -15,23 +17,33 @@ import static com.demo.item.rabbitmq.MQConstant.*;
 public class MQConfig {
 
     @Bean
-    public DirectExchange DExchange(){
-        return new DirectExchange(EXCHANGE, true, false);
+    public DirectExchange DExchange() {
+        return new DirectExchange(POSTER_EXCHANGE, true, false);
     }
 
     @Bean
-    public Queue Queue1() {
-        return new Queue(QUEUENAME);
+    public Queue queue1() {
+        return new Queue(POSTER_QUEUENAME);
     }
 
     @Bean
-    public DirectExchange BExchange(){
+    public DirectExchange BExchange() {
         return new DirectExchange(BOSS_EXCHANGE, true, false);
     }
 
     @Bean
-    public Queue Queue2() {
+    public Queue queue2() {
         return new Queue(BOSS_QUEUENAME);
+    }
+
+    @Bean
+    public Binding binding1(Queue queue1, DirectExchange DExchange) {
+        return BindingBuilder.bind(queue1).to(DExchange).with(POSTER_ROUTINGKEY);
+    }
+
+    @Bean
+    public Binding binding2(Queue queue2, DirectExchange BExchange) {
+        return BindingBuilder.bind(queue2).to(BExchange).with(BOSS_ROUTINGKEY);
     }
 
 //    @Value("${spring.rabbitmq.host}")

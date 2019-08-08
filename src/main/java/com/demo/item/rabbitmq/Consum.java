@@ -12,10 +12,20 @@ import static com.demo.item.rabbitmq.MQConstant.*;
 public class Consum {
 
     @RabbitListener(bindings = @QueueBinding(
-            value =@Queue(value = QUEUENAME, durable = "true"),
-            exchange = @Exchange(value = EXCHANGE, durable = "true"),
-            key = ROUTINGKEY))
+            value = @Queue(value = POSTER_QUEUENAME, durable = "true"),
+            exchange = @Exchange(value = POSTER_EXCHANGE, durable = "true"),
+            key = "DELIVERY-TRANCATE-OPERATION-ROUTING.*"))
     public void customer(String message) {
+        System.out.println("exchangeName:" + POSTER_EXCHANGE + " queueName:" + POSTER_QUEUENAME);
+        System.out.println(message);
+    }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = BOSS_QUEUENAME, durable = "true"),
+            exchange = @Exchange(value = BOSS_EXCHANGE, durable = "true"),
+            key = "BOSS-TRADERECORD-ROUTING.*"))
+    public void bossCustomer(String message) {
+        System.out.println("exchangeName:" + BOSS_EXCHANGE + " queueName:" + BOSS_QUEUENAME);
         System.out.println(message);
     }
 }

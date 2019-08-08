@@ -4,11 +4,16 @@ security:
   basic:
     enable: false
 spring:
+#  rabbitmq:
+#    host: 172.16.10.170
+#    port: 5672
+#    username: admin
+#    password: admin
   rabbitmq:
-    host: 172.16.10.170
+    host: 172.16.15.76
     port: 5672
-    username: admin
-    password: admin
+    username: zxtfadmin
+    password: zxtfadmin
 #    publisher-confirms: true
 #    publisher-returns: true
 #    listener:
