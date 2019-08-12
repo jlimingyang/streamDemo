@@ -32,7 +32,6 @@ public class RabbitmqDemo {
             "]\n" +
             "}";
 
-
     public final String msg0 = "{\"createAccount\":\"5a232d65d599437e28034eba\",\"depotCode\":\"SC00281000052\",\"id\":1,\"orderType\":-1,\"sourceNo\":\"03156497102757511131855\",\"tradeAmount\":0,\"tradeNo\":\"654446471109742592\",\"tradeTime\":1564971028000,\"tradeType\":1}";
 
     @Autowired
@@ -64,5 +63,10 @@ public class RabbitmqDemo {
             msg.getMessageProperties().setConsumerQueue(BOSS_QUEUENAME);
             return msg;
         });
+    }
+    @Autowired String redisHost;
+    @Test
+    public void setTestData001(){
+        System.out.println(redisHost);
     }
 }
