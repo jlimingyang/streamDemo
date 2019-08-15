@@ -10,7 +10,9 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -432,17 +434,9 @@ public class test {
     }
 
     @Test
+    @GetMapping
     public void testCCC(){
-        LocalTime a = LocalTime.of(1,00);
-        LocalTime b = LocalTime.of(10,00);
-        new Thread(() -> {
-            log.debug("测试");
-        }).start();
-        int c = 1;
-        while (a.isBefore(b)){
-            a = a.plusHours(1);
-            System.out.println(c++);
-        }
+        System.out.println("像风一样的男人".replaceAll("(.{1})(.*)(.{1})", "$1****$3"));
 
     }
 

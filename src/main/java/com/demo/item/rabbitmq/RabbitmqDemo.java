@@ -3,6 +3,7 @@ package com.demo.item.rabbitmq;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.demo.Application;
 import com.alibaba.fastjson.JSON;
+import com.demo.SpringBootBaseTest;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +19,7 @@ import java.util.ArrayList;
 
 import static com.demo.item.rabbitmq.MQConstant.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes={Application.class})
-public class RabbitmqDemo {
+public class RabbitmqDemo extends SpringBootBaseTest {
 
 
 
