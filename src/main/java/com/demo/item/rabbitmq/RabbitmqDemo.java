@@ -63,9 +63,8 @@ public class RabbitmqDemo extends SpringBootBaseTest {
             return msg;
         });
     }
-    @Autowired String redisHost;
     @Test
     public void setTestData001(){
-        System.out.println(redisHost);
+        System.out.println(REDIS_HOST);
     }
 }

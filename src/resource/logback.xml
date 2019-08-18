@@ -1,0 +1,26 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 本地开发阶段不需要这段配置 -->
+    <!--<appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
+    <!--<destination>10.0.66.63:4787</destination>-->
+    <!--<encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">-->
+    <!--<customFields>{"service":"service-payment"}</customFields>-->
+    <!--</encoder>-->
+    <!--</appender>-->
+    <!-- 本地开发阶段不需要这段配置 -->
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+        <!--<appender-ref ref="logstash"/>-->
+    </root>
+
+    <logger level="debug" name="com.demo" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <!--<appender-ref ref="logstash"/>-->
+    </logger>
+</configuration>

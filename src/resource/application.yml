@@ -29,7 +29,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: root
+    password: 165177
     url: jdbc:mysql://localhost:3306/test?createDatabaseIfNotExist=true&charset=utf8mb4&useSSL=false&serverTimezone=UTC
     hikari:
       maximum-pool-size: 20
@@ -49,3 +49,5 @@ spring:
 
 constant:
   enable: true
+logging:
+  config: classpath:logback.xml
