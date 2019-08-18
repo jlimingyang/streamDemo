@@ -27,6 +27,7 @@ public class AnnotationAspect {
         Change annotation = method.getAnnotation(Change.class);
         String value = annotation.value();
         System.out.println("准备" + value);
+        System.out.println(JSON.toString(joinPoint));
     }
 
     @After("annotationPointcut()")
@@ -37,5 +38,6 @@ public class AnnotationAspect {
         Change annotation = method.getAnnotation(Change.class);
         String value = annotation.value();
         System.out.println("结束" + value);
+        System.out.println(JSON.toString(joinPoint));
     }
 }
