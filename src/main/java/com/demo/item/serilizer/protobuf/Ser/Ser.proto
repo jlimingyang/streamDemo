@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_package = "com.demo.item.serilizer.protobuf.Ser";
+option java_outer_classname = "SerSerializer";
+message Ser {
+    string name = 1;
+    int32 age = 2;
+    repeated SerDemo demos = 3;
+    message SerDemo {
+        string demoName = 1;
+        int32 demoAge = 2;
+    }
+}

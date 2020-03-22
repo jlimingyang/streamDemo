@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import lombok.Data;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,5 +59,12 @@ public class TestService {
         List<Employee> collect = es.stream().peek(s -> s.setAge(100)).collect(Collectors.toList());
         System.out.println(JSON.toJSONString(collect));
 
+    }
+
+
+    public static void main(String[] args) {
+        String a = "2019-11-04T16:00:00";
+        LocalDateTime l = LocalDateTime.parse(a, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        System.out.println(l.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 }
